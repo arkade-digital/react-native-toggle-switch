@@ -76,18 +76,19 @@ class ToggleSwitch extends React.Component {
 
   render() {
     const { text: { on = 'ON', off = 'OFF', activeTextColor, inactiveTextColor },
-     color: { active, inactive, indicator, activeBorder, inactiveBorder }, 
+     color: { active, inactive, indicator, activeBorder, inactiveBorder },
      textStyle = {},
-     disabled = false
+     disabled = false,
+      disableTouch = false
     } = this.props;
     const { isActive } = this.state;
-    
+
     return (
-      <TouchableOpacity  onPress={this.toggleSwitch} activeOpacity={1} ref = {this.setTouchableRef} disabled={disabled}>
+      <TouchableOpacity  onPress={this.toggleSwitch} activeOpacity={1} ref = {this.setTouchableRef} disabled={disabled || disableTouch}>
       <View
         style={[
           styles.viewPort,
-          { 
+          {
             width: this.viewPortWidth,
             height: this.props.radius * 2 +  this.universalPadding * 2,
             opacity: 1,
@@ -112,26 +113,26 @@ class ToggleSwitch extends React.Component {
           <View
             style={[
               styles.container,
-              { 
+              {
                 opacity: 1,
                 backgroundColor: isActive? active: inactive,
-                height:  this.props.radius * 2 +  this.universalPadding * 2 
+                height:  this.props.radius * 2 +  this.universalPadding * 2
               }
             ]}
           >
             <View
               style={[
                 styles.activeView,
-                { 
+                {
                   width: this.props.width,
                   // marginLeft: this.viewPortRadius
                 }
               ]}
             >
-              <Text 
+              <Text
                 style={[
                   {
-                    alignSelf: 'center', 
+                    alignSelf: 'center',
                     textAlign: 'center',
                     color: isActive ? activeTextColor : inactiveTextColor
                   },
@@ -141,19 +142,19 @@ class ToggleSwitch extends React.Component {
                 {on}
               </Text>
             </View>
-            <TouchableWithoutFeedback onPress={this.toggleSwitch} disabled={disabled}>
+            <TouchableWithoutFeedback onPress={this.toggleSwitch} disabled={disabled || disableTouch}>
               <View
                 style={[
                   styles.indicatorWrapper,
                   {
                     justifyContent: isActive ? 'flex-end' : 'flex-start',
-                    padding: this.universalPadding 
+                    padding: this.universalPadding
                   }
                 ]}>
                 <View
                   style={[
                     styles.indicator,
-                    { backgroundColor: indicator, 
+                    { backgroundColor: indicator,
                       borderColor: isActive ? active : inactive,
                       width: this.props.radius * 2,
                       height: this.props.radius * 2,
@@ -174,7 +175,7 @@ class ToggleSwitch extends React.Component {
               <Text
                 style={[
                 {
-                  alignSelf: 'center', 
+                  alignSelf: 'center',
                   textAlign: 'center',
                   color: isActive ? activeTextColor : inactiveTextColor
                 },
